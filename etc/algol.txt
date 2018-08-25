@@ -1,0 +1,225 @@
+Lesson 1:Iterations
+BinaryGap
+10진수를 2진수로 변환하여 연속되는 0의 길이 가장 긴 값_PHP
+
+function solution($N) {
+    $maxGap = 0; // 최대 길이의 Binary gap
+    $start = 0; // Binary gap 의 왼쪽 시작의 1
+    $finish = -1; // Binary gap 의 오른쪽 끝의 1
+    $mask = 1; // bit 연산을 위한 mask
+    if(!isset($N)) return;
+    while($mask < $N && $start < 31) { // mask가 N보다 커지거나 최대 자리수가 30을 넘을때(음수가 될때) 종료
+        if(($mask & $N) > 0) { // 해당 자리수가 1이면
+            $gap = $start - $finish -1; // gap 계산
+            if($maxGap < $gap && $finish != -1) { // 오른쪽 끝의 1이 초기화 되어야 gap 대입.
+                $maxGap = $gap;
+            }
+            $finish = $start; // 오른쪽 끝의 1 갱신
+        }            
+        $mask = 1 << ++$start; // 왼쪽 시작 1과 마스크 갱신
+    }
+    
+    return $maxGap; // Binary gap의 최대값 리턴
+}
+
+
+
+Lesson 2:Arrays
+CyclicRotation
+([3, 8, 9, 7, 6], 3) ->  [9, 7, 6, 3, 8]
+function solution($A, $K) {
+    $cnt = COUNT($A);
+    for($i = 0; $i < $cnt; $i++){
+        $res[$K++ % $cnt] = $A[$i];
+    }
+
+    return $res;
+}
+
+
+배열에서 짝없는 원소 찾기 _PHP
+OddOccurrencesInArray
+function solution($A) {
+    $result = 0;
+    $N = sizeof($A);
+    
+    if ($N > 1000000) return $result;
+    
+    $tmp = array();
+    for ($i = 0 ; $i < $N ; $i++) {
+        if(!isset($tmp[$A[$i]])) $tmp[$A[$i]] = 0;
+        $tmp[$A[$i]] += 1;
+    }
+    
+    $cnt = 0;
+    foreach ($tmp as $k=>$v) {
+        if ($v % 2 != 0) {
+            $result = $k;
+            $cnt++;
+        }
+    }
+    
+    if ($cnt > 1) $result = 0;
+    
+    return $result;
+}
+
+
+Lesson 3:Time Complexity
+FrogJmp
+function solution($X, $Y, $D) {
+    if($X > "1000000000" || $Y > "1000000000" || $D > "1000000000") return;
+    $dis = $Y - $X;
+    $cnt = $dis%$D == 0 ? $dis/$D : ($dis/$D)+1;
+    return (int) $cnt;
+    
+    // write your code in PHP7.0
+}
+
+PermMissingElem
+주어진 순열에서 누락 된 원소를 찾는다.
+function solution($A) {
+    
+    $result = 0;
+    $N = sizeof($A);
+    if ($N < 0 || $N > 100000) return $result;
+    
+    $max = 0;
+    for ($i = 0 ; $i < $N ; $i++) {
+        if(!isset($tmp[$A[$i]])) {
+            $tmp[$A[$i]] = 1;
+            $max = $max < $A[$i] ? $A[$i] : $max;
+            
+        } else return $result;
+    }
+    
+    if ($max == $N+1) {
+        $cnt = 0;
+        for ($i = 1 ; $i < $max+1 ; $i++) {
+            if (!isset($tmp[$i])) {
+                $result = $i;
+                $cnt++;
+            }
+        }
+        
+        if ($cnt > 1) $result = 0;
+    } else $result = $max+1;
+    
+    return $result;
+
+}
+
+TapeEquilibrium
+|(A[0] + A[1] + ... + A[P − 1]) − (A[P] + A[P + 1] + ... + A[N − 1])|
+P = 1, difference = |3 − 10| = 7 
+P = 2, difference = |4 − 9| = 5 
+P = 3, difference = |6 − 7| = 1 
+P = 4, difference = |10 − 3| = 7 
+
+function solution($A) {
+    $right = 0;
+    $left = 0;
+    $min = "100001";
+    if(!isset($A)) return;
+    
+    $N = sizeof($A);
+    if($N <= 2 && $N >= 100000) return;
+    
+    foreach($A AS $v){
+        $right += $v;   
+    }
+    
+    for($i = 2; $i < $N; $i++){
+        $right -= $A[$i - 1];
+        $left += $A[$i - 1];
+        $sum = abs($right - $left);
+        
+        if($min > $sum ){
+            $min = $sum;
+        }
+    }
+    
+    return $min;
+}
+
+public int solution(int[] A) {
+    int n = A.length;
+    int totSum = 0;
+    int leftSum = 0;
+    int rightSum = 0;
+
+    for(int i = 0 ; i < n ; i++){
+        totSum = totSum + A[i];
+    }
+
+    for(int x = 1 ; x < n ; x++){
+        leftSum = leftSum + A[x - 1];
+        rightSum = totSum - leftSum;
+        minDiff = Math.min(minDiff, Math.abs(leftSum - rightSum));
+    }
+    return minDiff;
+
+}
+
+Lesson 4:Counting Elements
+PermCheck
+배열 A가 순열인지 확인하십시오.
+function solution($A) {
+    $cnt = COUNT($A);
+    if($cnt > 100000) return;
+    for($i = 0; $i < $cnt ; $i++){
+        if($A[$i] > $cnt){
+            return 0;
+        }
+    }
+    return 1;
+}
+
+FrogRiverOne
+MissingInteger
+MaxCounters
+
+Lesson 5:Prefix Sums
+PassingCars
+CountDiv
+GenomicRangeQuery
+MinAvgTwoSlice
+
+Lesson 6:Sorting
+Distinct
+MaxProductOfThree
+Triangle
+NumberOfDiscIntersections
+
+Lesson 7:Stacks and Queues
+Nesting
+Brackets
+Fish
+StoneWall
+
+Lesson 8:Leader
+Dominator
+EquiLeader
+
+Lesson 9:Maximum slice problem
+MaxDoubleSliceSum
+MaxProfit
+MaxSliceSum
+
+Lesson 10:Prime and composite numbers
+CountFactors
+MinPerimeterRectangle
+Peaks
+Flags
+
+Lesson 11:Sieve of Eratosthenes
+CountSemiprimes
+CountNonDivisible
+
+Lesson 12:Euclidean algorithm
+ChocolatesByNumbers
+CommonPrimeDivisors
+
+Lesson 13:Fibonacci numbers
+FibFrog
+Ladder

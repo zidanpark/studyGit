@@ -18,7 +18,11 @@
 
 
         public function productDuck(){
-            return (object) ["type"=>$this->duckType,"fly"=>$this->flyType];
+            $duckProduct = array(
+                "type"=>$this->duckType,
+                "fly"=>$this->flyType
+            );  
+            return (object)$duckProduct;
         }
     }
 
@@ -28,7 +32,14 @@
 
     class simpleFlying implements Flying {
         function fly(){ 
-            $msg = "ì €ëŠ” í‰ë²”í•˜ê²Œ ë‚ ì•„ìš”";
+            $msg = "Àú´Â Æò¹üÇÏ°Ô ³¯¾Æ¿ä";
             return $msg;
         }
     }
+
+    class noFlying implements Flying {
+        function fly(){ 
+            $msg = "Àú´Â ³¯Áö ¸øÇÕ´Ï´Ù.";
+            return $msg;
+        }
+    }    
