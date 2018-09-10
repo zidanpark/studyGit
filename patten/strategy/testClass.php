@@ -1,45 +1,38 @@
 <?
-    class tesCtlass {        
+include "./itf/crawInterface.php";
+include "./itf/flyInterface.php";
 
-        private $duckType = "";
-        private $flyType;
+class tesCtlass {
 
-        function __construct($duckType){
-            $this->duckType = $duckType;
-        }
+    private $duckType = "";
+    private $flyType;
+    private $crawType;
 
-        public function getAll(){
-            return $this;
-        }
-
-        public function flyingBehavior(Flying $flyType){
-            $this->flyType = $flyType->fly();
-        }
-
-
-        public function productDuck(){
-            $duckProduct = array(
-                "type"=>$this->duckType,
-                "fly"=>$this->flyType
-            );  
-            return (object)$duckProduct;
-        }
+    function __construct($duckType){
+        $this->duckType = $duckType;
     }
 
-    interface Flying {
-        function fly();
+    public function getAll(){
+        return $this;
     }
 
-    class simpleFlying implements Flying {
-        function fly(){ 
-            $msg = "저는 평범하게 날아요";
-            return $msg;
-        }
+    public function flyingBehavior(Flying $flyType){
+        $this->flyType = $flyType->fly();
     }
 
-    class noFlying implements Flying {
-        function fly(){ 
-            $msg = "저는 날지 못합니다.";
-            return $msg;
-        }
-    }    
+    public function crawingBehavior(Crawing $crawType){
+        $this->crawType = $crawType->crawing();
+    }
+
+
+    public function productDuck(){
+        $duckProduct = array(
+            "type"=>$this->duckType,
+            "fly"=>$this->flyType,
+            "crawing"=>$this->crawType
+
+        );
+        return (object)$duckProduct;
+    }
+}
+
