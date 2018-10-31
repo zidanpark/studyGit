@@ -12,6 +12,6 @@
         if($k == 0) {echo $r;}
         else {echo $r[$k]+$r[$k-1];}
     }
-
+    echo "test";
 
 ?>
